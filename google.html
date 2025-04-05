@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Dorks</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #000;
+      color: #0f0;
+      padding: 30px;
+    }
+
+    h2 {
+      color: #ff0;
+    }
+
+    .dork {
+      margin: 8px 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    .dork:hover {
+      color: #f00;
+    }
+  </style>
+</head>
+<body>
+  <h2>Google Dorks</h2>
+  <p>Target: <span id="domainTarget"></span></p>
+
+  <div id="dorks"></div>
+
+  <script>
+    const dorkList = [
+      { label: "Directory listing vulnerabilities", q: "intitle:index.of" },
+      { label: "Exposed Configuration files", q: "ext:xml | ext:conf | ext:cnf | ext:ini" },
+      { label: "Exposed Database files", q: "ext:sql | ext:dbf | ext:mdb" },
+      { label: "Exposed Log files", q: "ext:log" },
+      { label: "Backup and Old files", q: "ext:bak | ext:bkp | ext:backup | ext:old" },
+      { label: "Login Pages", q: "inurl:login" },
+      { label: "SQL Errors", q: 'intext:"sql syntax near" | intext:"unexpected end of SQL"' },
+      { label: "Public Docs", q: "ext:pdf | ext:doc | ext:docx | ext:csv" },
+      { label: "phpinfo()", q: 'ext:php intitle:phpinfo' },
+      { label: "WordPress Stuff", q: "inurl:wp- | inurl:wp-content | inurl:plugins" },
+      { label: "Install/Setup Files", q: "inurl:install | inurl:setup | inurl:readme" },
+      { label: "Open Redirects", q: "inurl:redir | inurl:url= | inurl:return" },
+      { label: "Find Pastebin Entries", q: "" }, // will use pastebin.com
+      { label: "Employees on LinkedIn", q: "" }, // site:linkedin.com
+    ];
+
+    const domain = sessionStorage.getItem("target");
+    document.getElementById("domainTarget").textContent = domain || "N/A";
+
+    const dorksDiv = document.getElementById("dorks");
+
+    dorkList.forEach(dork => {
+      const link = document.createElement("a");
+      link.className = "dork";
+      let url = "https://www.google.com/search?q=";
+      if (dork.q) {
+        url += encodeURIComponent(`site:${domain} ${dork.q}`);
+      } else {
+        if (dork.label.includes("Pastebin")) url += encodeURIComponent(`site:pastebin.com ${domain}`);
+        if (dork.label.includes("LinkedIn")) url += encodeURIComponent(`site:linkedin.com employees ${domain}`);
+      }
+      link.href = url;
+      link.target = "_blank";
+      link.innerText = `🔍 ${dork.label}`;
+      dorksDiv.appendChild(link);
+    });
+  </script>
+</body>
+</html>
