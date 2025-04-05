@@ -1,0 +1,29 @@
+body {
+  font-family: monospace;
+  background: #0d0d0d;
+  color: #f2f2f2;
+  padding: 20px;
+}
+
+input {
+  width: 300px;
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+#nav a {
+  margin: 10px;
+  padding: 10px;
+  background: #222;
+  color: white;
+  text-decoration: none;
+}
+
+button {
+  background-color: #444;
+  color: #fff;
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+}
