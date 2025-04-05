@@ -2,20 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Bug Bounty Recon</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <title>BB Recon - Entry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    input {
+      width: 300px;
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    .links {
+      margin-top: 30px;
+    }
+
+    a {
+      color: #0ff;
+      font-size: 20px;
+      display: block;
+      margin: 10px;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>🔍 Bug Bounty Recon Toolkit</h1>
-
-  <input type="text" id="domainInput" placeholder="Enter domain e.g. example.com">
-  <div id="nav">
+  <h1>🔍 Bug Bounty Recon</h1>
+  <input type="text" id="domainInput" placeholder="Enter target domain (e.g. example.com)" />
+  <div class="links">
     <a href="google.html">Google Dorks</a>
-    <a href="github.html">GitHub Dorks</a>
     <a href="wayback.html">Wayback URLs</a>
-    <a href="shodan.html">Shodan</a>
+    <a href="shodan.html">Shodan + Censys</a>
+    <a href="github.html">GitHub + Reddit</a>
+    <a href="utils.html">Helper Tools</a>
   </div>
 
-  <script src="assets/script.js"></script>
+  <script>
+    const input = document.getElementById("domainInput");
+    input.addEventListener("input", () => {
+      sessionStorage.setItem("target", input.value.trim());
+    });
+    input.value = sessionStorage.getItem("target") || "";
+  </script>
 </body>
 </html>
